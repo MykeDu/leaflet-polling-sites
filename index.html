@@ -49,11 +49,12 @@
     <script>
       let map = L.map("mapid").setView([35.932335, -85.469837], 10);
 
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+       L.tileLayer("https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
+        maxZoom: 20,
+        subdomains: ["mt0", "mt1", "mt2", "mt3"],
+        attribution: "&copy; Google",
       }).addTo(map);
+
 
             // Load GeoJSON via AJAX
     var precinctLayer = new L.GeoJSON.AJAX("assets/precincts.geojson", {
