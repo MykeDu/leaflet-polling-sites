@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sparta sites</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: beige;
+      }
+
+      #mapid {
+        height: 100vh;
+        width: 100vw;
+      }
+      h1, h2 {text-align: center;}
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header><h1>Sparta, TN</h1></header>
+      <main>
+        <h2>Polling Sites</h2>
+        <div id="mapid"></div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-ajax@2.1.0/dist/leaflet.ajax.min.js"></script>
+
+    <script>
+      let map = L.map("mapid").setView([35.932335, -85.469837], 10);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+
+            // Load GeoJSON via AJAX
+    var precinctLayer = new L.GeoJSON.AJAX("assets/precincts.geojson", {
+        onEachFeature: function (feature, layer) {
+            // Optional: bind popup with feature properties
+            if (feature.properties && feature.properties.name) {
+                layer.bindPopup("site: " + feature.properties.name + "<br> address:" + feature.properties.address + "<br> Precinct: " + feature.properties.precint);
+            }
+        },
+        middleware: function (data) {
+            // Optional: modify data before adding to map
+            return data;
+        }
+    });
+    precinctLayer.addTo(map) 
+
+    // var precinctLayer = new L.GeoJSON.AJAX("assets/voting_districts.geojson", {
+    //     onEachFeature: function (feature, layer) {
+    //         // Optional: bind popup with feature properties
+    //         if (feature.properties && feature.properties.name) {
+    //             layer.bindPopup("site: " + feature.properties.name + "<br> address:" + feature.properties.address + "<br> Precinct: " + feature.properties.precint);
+    //         }
+    //     },
+    //     middleware: function (data) {
+    //         // Optional: modify data before adding to map
+    //         return data;
+    //     }
+    // });
+
+    // precinctLayer.addTo(map);
+
+      let districtLayer = new L.GeoJSON.AJAX("assets/spartaDistricts.geojson", {
+        onEachFeature: function (feature, layer) {
+          if (feature.properties) {
+            layer.bindPopup("Name: " + feature.properties.NAME);
+            // layer.bindPopup(
+            //   Object.keys(feature.properties)
+            //     .map(
+            //       (key) =>
+            //         `<strong>${key}:</strong> ${feature.properties[key]}`,
+            //     )
+            //     .join("<br>"),
+            // );
+          }
+        },
+      });
+      districtLayer.addTo(map);
+    </script>
+  </body>
+</html>
