@@ -1,8 +1,4 @@
 # leaflet-polling-sites
-Simple leaflet map with voting features
-
-## Purpose
-
 Demonstrate how open source technologies can be used to create a simple location site map
 
 ## The question
