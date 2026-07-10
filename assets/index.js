@@ -97,3 +97,47 @@
       map.addControl(new legendControl({ position: "topright" }));
 
       // TODO Add North Arrow
+      // add north arrow
+      const NorthArrowControl = L.Control.extend({
+        onAdd: function () {
+          const container = L.DomUtil.create("div", "north-arrow-control");
+          container.title = "North";
+          container.setAttribute("role", "img");
+          container.setAttribute("aria-label", "Map north arrow, pointing up");
+
+          container.style.width = "44px";
+          container.style.height = "54px";
+          container.style.background = "white";
+          container.style.border = "1px solid rgba(0,0,0,0.2)";
+          container.style.borderRadius = "4px";
+          container.style.display = "flex";
+          container.style.alignItems = "center";
+          container.style.justifyContent = "center";
+          container.style.boxShadow = "0 1px 4px rgba(0,0,0,0.2)";
+          container.style.userSelect = "none";
+          container.style.cursor = "default";
+
+          // SVG: filled arrow (half-white/half-black classic style) + bold "N"
+          container.innerHTML = `
+      <svg width="34" height="46" viewBox="0 0 34 46" xmlns="http://www.w3.org/2000/svg">
+        <!-- Arrow: right half filled, left half outlined, like a compass rose -->
+        <polygon points="17,2 24,26 17,21" fill="#222" />
+        <polygon points="17,2 10,26 17,21" fill="#fff" stroke="#222" stroke-width="1"/>
+        <line x1="17" y1="21" x2="17" y2="30" stroke="#222" stroke-width="1.5"/>
+        <text x="17" y="43" text-anchor="middle"
+              font-family="Arial, sans-serif" font-size="14" font-weight="700"
+              fill="#222">N</text>
+      </svg>
+    `;
+
+          // Prevent map drag/zoom when interacting with control
+          L.DomEvent.disableClickPropagation(container);
+
+          return container;
+        },
+        onRemove: function () {},
+      });
+
+      map.addControl(new NorthArrowControl({ position: "topright" }));
+    // END - add north arrow
+    
