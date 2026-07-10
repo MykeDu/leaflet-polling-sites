@@ -25,5 +25,6 @@ expected and what you'd do differently. Do not skip this section.]
 
 ## Stack
 
-- QGIS 
+- Leaflet
+- GitHub
 - geoJSON data
