@@ -9,10 +9,12 @@ Where are Election polling places and Election Districts located in Sparta TN (W
 
 - **White County Districts:** 8 polygons (Source: TN Open Data)
 - **White County Polling Sites:** 8 points (Source: TN Open Data)
-- License: NYC Open Data Terms of Use
+- License: TN Open Data Terms of Use
 - All data in EPSG:4326
 
 ## Methodology
+
+I followed the official Leaflet documention to layout a basic map.  The Getting started maps did not use external JavaScript (JS) or CSS files, which took me a little time to remove the inline JS and CSS.
 
 ## Findings
 
@@ -20,8 +22,9 @@ Where are Election polling places and Election Districts located in Sparta TN (W
 
 ## What I learned
 
-[Two or three sentences. Be specific about which step was harder than
-expected and what you'd do differently. Do not skip this section.]
+It has been a long time since I created a Leaflet map. I was not aware that Leaflet was expecting a coordinate reference system of EPSG:4326, which cause me confusion when I could not visualize layer when trying to add the geoJSON files to the map.  This was fustrating because I knew the geoJSON files rendered in QGIS and ArcGIS Pro.
+
+Finding the voting districts was also fustrating.  I reached to a data reference on a static webmap that ultimate provided me with a shapefile.  
 
 ## Stack
 
