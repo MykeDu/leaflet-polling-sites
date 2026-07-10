@@ -58,3 +58,42 @@
         },
       });
       districtLayer.addTo(map);
+
+      // Add legend Control
+      // Function to create the legend HTML
+      function createLegend() {
+        const legendHtml = `
+        <div class="legend">
+            <h3>Map Legend</h3>
+            <div class="legend-item">
+                <img src="assets/images/district-icon.png" alt="Districts" title="Sparta Districts">
+                <span>District</span>
+            </div>
+            <div class="legend-item">
+                <img src="assets/images/precinct-icon2.png" alt="Precinct" title="Sparta Polling Sites">
+                <span>Precinct</span>
+            </div>
+            </div>
+        </div>
+    `;
+        return legendHtml;
+      }
+
+      // Create a custom legend control
+      const legendControl = L.Control.extend({
+        onAdd: function (map) {
+          // Create a div element for the control
+          const div = L.DomUtil.create("div", "legend-control");
+          // Add the legend HTML to the div
+          div.innerHTML = createLegend();
+          return div;
+        },
+        onRemove: function (map) {
+          // Optional: Cleanup code when control is removed
+        },
+      });
+
+      // Add the legend control to the map (position: top-right)
+      map.addControl(new legendControl({ position: "topright" }));
+
+      // TODO Add North Arrow
