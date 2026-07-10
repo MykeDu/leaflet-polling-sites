@@ -55,3 +55,39 @@ h2 {
     font-size: 14px;
     color: #666;
 }
+
+/* Navbar */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #666666;
+  display: flex;
+}
+
+ul li a {
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  background-color: #333333;
+}
+
+/* Media Queries */
+
+@media (max-width: 768px) {
+    .legend {
+        padding: 8px;
+    }
+    .legend h3 {
+        font-size: 14px;
+    }
+    .legend-item img {
+        width: 20px;
+        height: 20px;
+    }
+}
