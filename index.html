@@ -70,7 +70,7 @@
       });
 
       // Load GeoJSON via AJAX
-      var precinctLayer = new L.GeoJSON.AJAX("assets/precincts.geojson", {
+      var precinctLayer = new L.GeoJSON.AJAX("assets/data/precincts.geojson", {
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, { icon: redIcon });
         },
@@ -109,7 +109,7 @@
 
       // precinctLayer.addTo(map);
 
-      let districtLayer = new L.GeoJSON.AJAX("assets/spartaDistricts.geojson", {
+      let districtLayer = new L.GeoJSON.AJAX("assets/data/spartaDistricts.geojson", {
         onEachFeature: function (feature, layer) {
           if (feature.properties) {
             layer.bindPopup("Name: " + feature.properties.NAME);
