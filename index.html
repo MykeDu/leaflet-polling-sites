@@ -33,7 +33,10 @@
         height: 100vh;
         width: 100vw;
       }
-      h1, h2 {text-align: center;}
+      h1,
+      h2 {
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -49,42 +52,62 @@
     <script>
       let map = L.map("mapid").setView([35.932335, -85.469837], 10);
 
-       L.tileLayer("https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
+      L.tileLayer("https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}", {
         maxZoom: 20,
         subdomains: ["mt0", "mt1", "mt2", "mt3"],
         attribution: "&copy; Google",
       }).addTo(map);
 
+      var redIcon = new L.Icon({
+        iconUrl:
+          "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+        shadowUrl:
+          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
 
-            // Load GeoJSON via AJAX
-    var precinctLayer = new L.GeoJSON.AJAX("assets/precincts.geojson", {
+      // Load GeoJSON via AJAX
+      var precinctLayer = new L.GeoJSON.AJAX("assets/precincts.geojson", {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, { icon: redIcon });
+        },
         onEachFeature: function (feature, layer) {
-            // Optional: bind popup with feature properties
-            if (feature.properties && feature.properties.name) {
-                layer.bindPopup("site: " + feature.properties.name + "<br> address:" + feature.properties.address + "<br> Precinct: " + feature.properties.precint);
-            }
+          // Optional: bind popup with feature properties
+          if (feature.properties && feature.properties.name) {
+            layer.bindPopup(
+              "site: " +
+                feature.properties.name +
+                "<br> address:" +
+                feature.properties.address +
+                "<br> Precinct: " +
+                feature.properties.precint,
+            );
+          }
         },
         middleware: function (data) {
-            // Optional: modify data before adding to map
-            return data;
-        }
-    });
-    precinctLayer.addTo(map) 
+          // Optional: modify data before adding to map
+          return data;
+        },
+      });
+      precinctLayer.addTo(map);
 
-    // var precinctLayer = new L.GeoJSON.AJAX("assets/voting_districts.geojson", {
-    //     onEachFeature: function (feature, layer) {
-    //         // Optional: bind popup with feature properties
-    //         if (feature.properties && feature.properties.name) {
-    //             layer.bindPopup("site: " + feature.properties.name + "<br> address:" + feature.properties.address + "<br> Precinct: " + feature.properties.precint);
-    //         }
-    //     },
-    //     middleware: function (data) {
-    //         // Optional: modify data before adding to map
-    //         return data;
-    //     }
-    // });
+      // var precinctLayer = new L.GeoJSON.AJAX("assets/voting_districts.geojson", {
+      //     onEachFeature: function (feature, layer) {
+      //         // Optional: bind popup with feature properties
+      //         if (feature.properties && feature.properties.name) {
+      //             layer.bindPopup("site: " + feature.properties.name + "<br> address:" + feature.properties.address + "<br> Precinct: " + feature.properties.precint);
+      //         }
+      //     },
+      //     middleware: function (data) {
+      //         // Optional: modify data before adding to map
+      //         return data;
+      //     }
+      // });
 
-    // precinctLayer.addTo(map);
+      // precinctLayer.addTo(map);
 
       let districtLayer = new L.GeoJSON.AJAX("assets/spartaDistricts.geojson", {
         onEachFeature: function (feature, layer) {
