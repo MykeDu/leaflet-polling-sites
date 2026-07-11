@@ -1,0 +1,14 @@
+# VS Code personal settings
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+
+# User-specific files
+.vscode/sftp.json
+.vscode/ftp-sync.json
+
+# Ignore log files
+*.log
+
+# Ignore temp folders
+temp/ 
